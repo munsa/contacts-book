@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "contacts-book"
+    }
+  },
+  "defaultProject": "contacts-book",
+  "cli": {
+    "analytics": false
+  }
 }
