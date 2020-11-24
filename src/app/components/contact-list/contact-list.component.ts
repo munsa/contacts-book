@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Contact} from '../../model/contact.model';
 import {SelectionModel} from '@angular/cdk/collections';
+import {MatDialog} from '@angular/material/dialog';
+import {NewContactWindowComponent} from '../new-contact-window/new-contact-window.component';
 
 @Component({
   selector: 'contact-list',
@@ -13,7 +15,7 @@ export class ContactListComponent implements OnInit {
   public displayedColumns: string[];
   public selection: SelectionModel<Contact>;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     // Test hardcoded contacts
     this.contactList = [
       new Contact(
@@ -41,6 +43,14 @@ export class ContactListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  openNewContactWindow() {
+    const dialogRef = this.dialog.open(NewContactWindowComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }
