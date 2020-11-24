@@ -11,7 +11,7 @@ The contact management application should consist out of three parts:
 • A table displaying a simplified list of all recorded contacts  
 • A contact detail view displaying the full  contact details of the currently selected contact  
 
-A registered contact should include the following information:
+A registered contact should include the following information:  
 • First name (string)  
 • Last name (string)  
 • Phone (string)  
