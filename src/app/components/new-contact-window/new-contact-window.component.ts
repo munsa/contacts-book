@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Contact} from '../../model/contact.model';
 
 @Component({
   selector: 'new-contact-window',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewContactWindowComponent implements OnInit {
 
-  constructor() { }
+  public contactForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.contactForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      surname: '',
+      phone: '',
+      email: '',
+      address: ''
+    });
+  }
+
+  onSubmit() {
+    if (!this.contactForm.valid) {
+      console.log(this.contactForm.value);
+      return;
+    }
+    console.log(this.contactForm.value);
   }
 
 }

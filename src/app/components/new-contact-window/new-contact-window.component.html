@@ -1,1 +1,43 @@
-<p>new-contact-window works!</p>
+<h1>Create new contact</h1>
+
+<form class="contact-form"
+      [formGroup]="contactForm"
+      (ngSubmit)="onSubmit()">
+  <mat-form-field class="contact-form-input">
+    <mat-label>Name</mat-label>
+    <input matInput
+           placeholder="Name"
+           formControlName="name">
+    <mat-icon matSuffix>person</mat-icon>
+  </mat-form-field>
+  <mat-form-field class="contact-form-input">
+    <mat-label>Surname</mat-label>
+    <input matInput
+           placeholder="Surname"
+           formControlName="surname">
+    <mat-icon matSuffix>person</mat-icon>
+  </mat-form-field>
+  <mat-form-field class="contact-form-input">
+    <mat-label>Phone</mat-label>
+    <input matInput
+           placeholder="Phone"
+           formControlName="phone">
+    <mat-icon matSuffix>phone</mat-icon>
+  </mat-form-field>
+  <mat-form-field class="contact-form-input">
+    <mat-label>Email</mat-label>
+    <input matInput
+           placeholder="Email"
+           formControlName="email">
+    <mat-icon matSuffix>alternate_email</mat-icon>
+  </mat-form-field>
+  <mat-form-field class="contact-form-input">
+    <mat-label>Address</mat-label>
+    <textarea matInput
+              placeholder="Address"
+              formControlName="address">
+    </textarea>
+    <mat-icon matSuffix>home</mat-icon>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Add Contact</button>
+</form>

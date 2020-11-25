@@ -45,7 +45,7 @@ export class ContactListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openNewContactWindow() {
+  openNewContactWindow(row) {
     const dialogRef = this.dialog.open(NewContactWindowComponent);
 
     dialogRef.afterClosed().subscribe(result => {
