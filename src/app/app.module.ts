@@ -14,6 +14,7 @@ import { NewContactWindowComponent } from './components/new-contact-window/new-c
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ContactDetailWindowComponent } from './components/contact-detail-window/contact-detail-window.component';
 import {ContactFullNamePipe} from './shared/pipes/contact-full-name.pipe';
+import {MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
@@ -34,9 +35,10 @@ import {ContactFullNamePipe} from './shared/pipes/contact-full-name.pipe';
     MatIconModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSortModule
   ],
-  providers: [],
+  providers: [ContactFullNamePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

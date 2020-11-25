@@ -1,8 +1,30 @@
-.contact-table {
-  max-width: 100%;
+.contact-table-container {
   min-width: 300px;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.contact-table-filter {
+  width: 100%;
+}
+
+.contact-table {
+  width: 100%;
+}
+
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type {
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 1px;
+}
+
+td.mat-footer-cell:first-of-type {
+  width: 1px;
+}
+
+.summary-row {
+  color: rgba(0,0,0,.50);
 }
 
 tr.contact-row {
