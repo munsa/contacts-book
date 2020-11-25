@@ -39,7 +39,7 @@ export class ContactListComponent implements OnInit {
         'Carrer Diputació 106 3-1, 08015 Barcelona')
     ]
 
-    this.displayedColumns = ['name', 'surname', 'phone', 'email', 'address'];
+    this.displayedColumns = ['icon', 'fullName'];
     this.selection = new SelectionModel<Contact>(false, []);
   }
 

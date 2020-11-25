@@ -13,6 +13,7 @@ import { ContactListComponent } from './components/contact-list/contact-list.com
 import { NewContactWindowComponent } from './components/new-contact-window/new-contact-window.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ContactDetailWindowComponent } from './components/contact-detail-window/contact-detail-window.component';
+import {ContactFullNamePipe} from './shared/pipes/contact-full-name.pipe';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ContactDetailWindowComponent } from './components/contact-detail-window
     AppComponent,
     ContactListComponent,
     NewContactWindowComponent,
-    ContactDetailWindowComponent
+    ContactDetailWindowComponent,
+    ContactFullNamePipe
   ],
   imports: [
     BrowserAnimationsModule,

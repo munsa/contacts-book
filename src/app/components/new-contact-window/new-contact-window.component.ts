@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Contact} from '../../model/contact.model';
 
 @Component({
   selector: 'new-contact-window',
