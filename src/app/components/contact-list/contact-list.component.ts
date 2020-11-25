@@ -8,6 +8,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {ContactFullNamePipe} from '../../shared/pipes/contact-full-name.pipe';
 import { Store } from '@ngrx/store';
 import {add} from '../../actions/contact.actions';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'contact-list',
@@ -19,6 +20,7 @@ export class ContactListComponent implements OnInit {
   public contactList: MatTableDataSource<Contact>;
   public displayedColumns: string[];
   public selection: SelectionModel<Contact>;
+  public selectedContactId: string;
 
   constructor(public dialog: MatDialog,
               private contactFullName: ContactFullNamePipe,
@@ -53,13 +55,20 @@ export class ContactListComponent implements OnInit {
   }
 
   openContactWindow(selectedContact: Contact) {
-    this.dialog.open(ContactDetailWindowComponent, {data: {contact: selectedContact}});
+    this.selectedContactId = selectedContact.id;
+    const dialogRef = this.dialog.open(ContactDetailWindowComponent, {data: {contact: selectedContact}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.selectedContactId = null;
+    });
   }
 
   openNewContactWindow() {
     const dialogRef = this.dialog.open(NewContactWindowComponent);
 
     dialogRef.componentInstance.addContact.subscribe((contact: Contact) => {
+      contact.id = uuidv4();
+
       this.store.dispatch(add({contact: contact}));
 
       dialogRef.close();

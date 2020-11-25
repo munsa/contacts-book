@@ -70,3 +70,7 @@ tr.contact-row {
 tr.contact-row:hover {
   background: #efefef;
 }
+
+tr.contact-row.active {
+  background: #bee9e2;
+}

@@ -4,6 +4,7 @@ import {Contact} from '../shared/model/contact.model';
 
 export const initialState: Contact[] = [
   {
+    id: '0',
     name: 'Marc',
     surname: 'Monserrat',
     phone: '699849644',
@@ -11,6 +12,7 @@ export const initialState: Contact[] = [
     address: 'Speckbachergasse 32/6-7, 1160 Vienna'
   },
   {
+    id: '1',
     name: 'Victor',
     surname: 'Dueso',
     phone: '676989832',
@@ -18,6 +20,7 @@ export const initialState: Contact[] = [
     address: 'Calle Pez 43 1º 2ª, 28004 Madrid'
   },
   {
+    id: '2',
     name: 'Alex',
     surname: 'Gonzalez',
     phone: '694837263',

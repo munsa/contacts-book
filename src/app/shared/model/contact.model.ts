@@ -1,4 +1,5 @@
 export class Contact {
+  public id: string;
   public name: string;
   public surname: string;
   public phone: string;
