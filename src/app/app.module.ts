@@ -15,6 +15,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ContactDetailWindowComponent } from './components/contact-detail-window/contact-detail-window.component';
 import {ContactFullNamePipe} from './shared/pipes/contact-full-name.pipe';
 import {MatSortModule} from '@angular/material/sort';
+import { StoreModule } from '@ngrx/store';
+import { contactReducer } from './reducers/contact.reducer'
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSortModule
+    MatSortModule,
+    StoreModule.forRoot({ contacts: contactReducer })
   ],
   providers: [ContactFullNamePipe],
   bootstrap: [AppComponent]

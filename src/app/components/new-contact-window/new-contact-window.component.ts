@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Contact} from '../../shared/model/contact.model';
 
 @Component({
   selector: 'new-contact-window',
@@ -8,9 +9,12 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class NewContactWindowComponent implements OnInit {
 
+  @Output() addContact = new EventEmitter<Contact>();
+
   public contactForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.contactForm = this.formBuilder.group({
@@ -23,11 +27,9 @@ export class NewContactWindowComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.contactForm.valid) {
-      console.log(this.contactForm.value);
-      return;
+    if(this.contactForm.valid) {
+      this.addContact.emit(this.contactForm.value);
     }
-    console.log(this.contactForm.value);
   }
 
 }

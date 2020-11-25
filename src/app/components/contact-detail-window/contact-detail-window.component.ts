@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {Contact} from '../../model/contact.model';
+import {Contact} from '../../shared/model/contact.model';
 
 @Component({
   selector: 'contact-detail-window',
