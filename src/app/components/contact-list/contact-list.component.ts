@@ -3,6 +3,7 @@ import {Contact} from '../../model/contact.model';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog} from '@angular/material/dialog';
 import {NewContactWindowComponent} from '../new-contact-window/new-contact-window.component';
+import {ContactDetailWindowComponent} from '../contact-detail-window/contact-detail-window.component';
 
 @Component({
   selector: 'contact-list',
@@ -45,7 +46,15 @@ export class ContactListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openNewContactWindow(row) {
+  openContactWindow(selectedContact: Contact) {
+    const dialogRef = this.dialog.open(ContactDetailWindowComponent, {data: {contact: selectedContact}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openNewContactWindow() {
     const dialogRef = this.dialog.open(NewContactWindowComponent);
 
     dialogRef.afterClosed().subscribe(result => {

@@ -1,0 +1,16 @@
+.contact-detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  &.header {
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 0.5rem 0 2rem 0;
+  }
+
+  .icon {
+    margin-right: 0.5rem;
+  }
+}

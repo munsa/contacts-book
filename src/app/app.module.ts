@@ -12,13 +12,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { NewContactWindowComponent } from './components/new-contact-window/new-contact-window.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ContactDetailWindowComponent } from './components/contact-detail-window/contact-detail-window.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactListComponent,
-    NewContactWindowComponent
+    NewContactWindowComponent,
+    ContactDetailWindowComponent
   ],
   imports: [
     BrowserAnimationsModule,
