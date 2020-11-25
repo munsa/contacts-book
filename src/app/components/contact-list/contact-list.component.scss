@@ -5,8 +5,31 @@
   margin-right: auto;
 }
 
+.contact-table-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-contact-button {
+  display: flex;
+  align-items: center;
+  min-width: 145px;
+
+  .icon {
+    margin-right: 0.5rem;
+  }
+}
+
 .contact-table-filter {
-  width: 100%;
+  width: 300px;
+  padding-left: 1rem;
+  overflow: hidden;
+}
+
+.contact-filter-input {
+  color: black;
 }
 
 .contact-table {
