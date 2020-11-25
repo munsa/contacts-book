@@ -53,11 +53,7 @@ export class ContactListComponent implements OnInit {
   }
 
   openContactWindow(selectedContact: Contact) {
-    const dialogRef = this.dialog.open(ContactDetailWindowComponent, {data: {contact: selectedContact}});
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.dialog.open(ContactDetailWindowComponent, {data: {contact: selectedContact}});
   }
 
   openNewContactWindow() {
@@ -65,10 +61,9 @@ export class ContactListComponent implements OnInit {
 
     dialogRef.componentInstance.addContact.subscribe((contact: Contact) => {
       this.store.dispatch(add({contact: contact}));
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      dialogRef.close();
+      dialogRef.componentInstance.addContact.unsubscribe();
     });
   }
 

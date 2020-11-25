@@ -4,6 +4,10 @@ import {Contact} from '../model/contact.model';
 @Pipe({name: 'contactFullName'})
 export class ContactFullNamePipe implements PipeTransform {
   transform(contact: Contact): string {
-    return contact.surname + ', ' + contact.name;
+    if(contact.surname !== '') {
+      return contact.surname + ', ' + contact.name;
+    } else {
+      return contact.name;
+    }
   }
 }

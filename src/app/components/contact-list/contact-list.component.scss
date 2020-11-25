@@ -1,6 +1,6 @@
 .contact-table-container {
   min-width: 300px;
-  max-width: 500px;
+  max-width: 400px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -22,8 +22,21 @@
   }
 }
 
+.person-icon-container {
+  position: relative;
+}
+
+.person-icon {
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
 .contact-table-filter {
-  width: 300px;
+  width: 150px;
   padding-left: 1rem;
   overflow: hidden;
 }
@@ -37,9 +50,9 @@
 }
 
 th.mat-header-cell:first-of-type, td.mat-cell:first-of-type {
-  padding-left: 24px;
-  padding-right: 24px;
-  width: 1px;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 25px;
 }
 
 td.mat-footer-cell:first-of-type {

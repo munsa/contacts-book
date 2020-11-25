@@ -8,17 +8,14 @@
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Vienna " #filterInput class="contact-filter-input">
     </mat-form-field>
-
-
   </div>
-
 
   <table mat-table [dataSource]="contactList" class="mat-elevation-z8 contact-table">
     <!-- Person icon -->
     <ng-container matColumnDef="icon">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let contact">
-        <mat-icon matSuffix>person</mat-icon>
+      <td mat-cell *matCellDef="let contact" class="person-icon-container">
+        <mat-icon matSuffix class="person-icon">person</mat-icon>
       </td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
@@ -27,7 +24,9 @@
     <ng-container matColumnDef="fullName">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let contact"> {{contact | contactFullName}} </td>
-      <td mat-footer-cell *matFooterCellDef [ngSwitch]="contactList.filteredData.length" class="summary-row">
+      <td mat-footer-cell *matFooterCellDef
+          [ngSwitch]="contactList.filteredData.length"
+          class="summary-row">
         <div *ngIf="contactList.data.length === 0; else summaryMessage">
           You don't have contacts yet
         </div>
@@ -47,19 +46,8 @@
         *matRowDef="let contact; columns: displayedColumns;"
         class="contact-row"
         (click)="openContactWindow(contact)"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
 
-    <tr mat-footer-row *matFooterRowDef="displayedColumns">test</tr>
-
-    <!-- Row shown when there is no matching data. -->
-    <ng-container matColumnDef="disclaimer">
-      <td mat-footer-cell *matFooterCellDef colspan="2">
-        Please note that the cost of items displayed are completely and totally made up.
-      </td>
-    </ng-container>
-    <tr class="mat-row" *ngIf="contactList.filteredData.length === 0">
-      <td class="mat-cell" colspan="4">There are no contacts for this filter"{{filterInput.value}}"</td>
-    </tr>
   </table>
-
 </div>
 

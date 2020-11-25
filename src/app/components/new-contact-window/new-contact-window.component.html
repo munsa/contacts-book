@@ -9,6 +9,9 @@
            placeholder="Name"
            formControlName="name">
     <mat-icon matSuffix>person</mat-icon>
+    <mat-error *ngIf="contactForm.controls['name'].hasError('required')">
+      Name is required
+    </mat-error>
   </mat-form-field>
   <mat-form-field class="contact-form-input">
     <mat-label>Surname</mat-label>
@@ -39,5 +42,6 @@
     </textarea>
     <mat-icon matSuffix>home</mat-icon>
   </mat-form-field>
-  <button mat-raised-button color="primary" type="submit">Add Contact</button>
+  <button mat-raised-button color="primary" type="submit"
+          [disabled]="contactForm.invalid">Add Contact</button>
 </form>
