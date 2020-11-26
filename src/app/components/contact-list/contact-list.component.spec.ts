@@ -18,8 +18,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogHarness} from '@angular/material/dialog/testing';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NewContactWindowComponent} from '../new-contact-window/new-contact-window.component';
-import {ContactDetailWindowComponent} from '../contact-detail-window/contact-detail-window.component';
+import {NewContactWindowComponent} from './new-contact-window/new-contact-window.component';
+import {ContactDetailWindowComponent} from './contact-detail-window/contact-detail-window.component';
 
 describe('ContactListComponent', () => {
   let component: ContactListComponent;

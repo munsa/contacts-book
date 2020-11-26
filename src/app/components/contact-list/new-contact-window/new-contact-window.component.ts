@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Contact} from '../../shared/model/contact.model';
+import {Contact} from '../../../shared/model/contact.model';
 
 @Component({
   selector: 'app-new-contact-window',
@@ -31,5 +31,4 @@ export class NewContactWindowComponent implements OnInit {
       this.addContact.emit(this.contactForm.value);
     }
   }
-
 }
