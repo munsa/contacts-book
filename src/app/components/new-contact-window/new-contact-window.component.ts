@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Contact} from '../../shared/model/contact.model';
 
 @Component({
-  selector: 'new-contact-window',
+  selector: 'app-new-contact-window',
   templateUrl: './new-contact-window.component.html',
   styleUrls: ['./new-contact-window.component.scss']
 })

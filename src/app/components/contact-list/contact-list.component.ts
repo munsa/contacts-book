@@ -11,7 +11,7 @@ import {add} from '../../actions/contact.actions';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
-  selector: 'contact-list',
+  selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.scss']
 })
@@ -26,35 +26,39 @@ export class ContactListComponent implements OnInit {
               private contactFullName: ContactFullNamePipe,
               private store: Store<{ contacts: Contact[] }>
   ) {
-    this.store.select(state => state.contacts).subscribe(res => {
-      this.contactList = new MatTableDataSource(res);
-    });
     this.displayedColumns = ['icon', 'fullName'];
-    this.selection = new SelectionModel<Contact>(false, []);
   }
 
-  ngOnInit(): void {
-    this.sortContactList();
+  ngOnInit() {
+    this.store.select(state => state.contacts).subscribe(res => {
+      this.contactList = new MatTableDataSource([...res]);
+      this.sortContactList(this.contactList.data);
+    });
   }
 
-  sortContactList(): void {
-    this.contactList.data.sort((a: Contact, b: Contact) => {
-      if (this.contactFullName.transform(a) > this.contactFullName.transform(b)) {
+  sortContactList(contactList: Contact[]): void {
+    contactList.sort((a: Contact, b: Contact) => {
+      if (this.contactFullName.transform(a).toLowerCase() > this.contactFullName.transform(b).toLowerCase()) {
         return 1;
       }
-      if (this.contactFullName.transform(a) < this.contactFullName.transform(b)) {
+      if (this.contactFullName.transform(a).toLowerCase() < this.contactFullName.transform(b).toLowerCase()) {
         return -1;
       }
       return 0;
     });
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.contactList.filter = filterValue.trim().toLowerCase();
   }
 
-  openContactWindow(selectedContact: Contact) {
+  createContact(contact: Contact) {
+    contact.id = uuidv4();
+    this.store.dispatch(add({contact: contact}));
+  }
+
+  openContactWindow(selectedContact: Contact): void {
     this.selectedContactId = selectedContact.id;
     const dialogRef = this.dialog.open(ContactDetailWindowComponent, {data: {contact: selectedContact}});
 
@@ -63,13 +67,11 @@ export class ContactListComponent implements OnInit {
     });
   }
 
-  openNewContactWindow() {
+  openNewContactWindow(): void {
     const dialogRef = this.dialog.open(NewContactWindowComponent);
 
     dialogRef.componentInstance.addContact.subscribe((contact: Contact) => {
-      contact.id = uuidv4();
-
-      this.store.dispatch(add({contact: contact}));
+      this.createContact(contact);
 
       dialogRef.close();
       dialogRef.componentInstance.addContact.unsubscribe();

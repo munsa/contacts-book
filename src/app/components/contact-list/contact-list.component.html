@@ -10,7 +10,7 @@
     </mat-form-field>
   </div>
 
-  <table mat-table [dataSource]="contactList" class="mat-elevation-z8 contact-table">
+  <table mat-table [dataSource]="contactList" class="mat-elevation-z8 contact-table" #contactsTable>
     <!-- Person icon -->
     <ng-container matColumnDef="icon">
       <th mat-header-cell *matHeaderCellDef></th>

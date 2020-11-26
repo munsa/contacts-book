@@ -38,7 +38,6 @@ import { contactReducer } from './reducers/contact.reducer'
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSortModule,
     StoreModule.forRoot({ contacts: contactReducer })
   ],
   providers: [ContactFullNamePipe],
