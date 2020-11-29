@@ -33,7 +33,7 @@ const _contactReducer = createReducer(
   initialState,
   on(add, (state, payload) => {
     return [...state, payload.contact]
-  })
+  }),
 );
 
 export function contactReducer(state, action) {

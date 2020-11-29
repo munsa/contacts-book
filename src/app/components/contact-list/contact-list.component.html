@@ -46,9 +46,8 @@
         *matRowDef="let contact; columns: displayedColumns;"
         class="contact-row"
         [ngClass]="{active: contact.id === selectedContactId}"
-        (click)="openContactWindow(contact)"></tr>
+        (click)="openContactDetailWindow(contact)"></tr>
     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
 
   </table>
 </div>
-

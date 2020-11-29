@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ContactListComponent} from './contact-list.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {StoreModule} from '@ngrx/store';
@@ -12,19 +12,28 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {HarnessLoader} from '@angular/cdk/testing';
 import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {MatInputHarness} from '@angular/material/input/testing';
-import {MatCellHarness, MatRowHarness, MatTableHarness} from '@angular/material/table/testing';
+import {MatRowHarness, MatTableHarness} from '@angular/material/table/testing';
 import {MatButtonHarness} from '@angular/material/button/testing';
 import {MatButtonModule} from '@angular/material/button';
-import {MatDialogHarness} from '@angular/material/dialog/testing';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NewContactWindowComponent} from './new-contact-window/new-contact-window.component';
 import {ContactDetailWindowComponent} from './contact-detail-window/contact-detail-window.component';
+import {of} from 'rxjs';
 
 describe('ContactListComponent', () => {
   let component: ContactListComponent;
   let fixture: ComponentFixture<ContactListComponent>;
   let loader: HarnessLoader;
+  let dialog: MatDialog;
+
+  class MdDialogMock {
+    open() {
+      return {
+        afterClosed: () => of({name: 'some object'})
+      };
+    }
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -37,6 +46,7 @@ describe('ContactListComponent', () => {
       imports: [
         BrowserAnimationsModule,
         MatDialogModule,
+        MatFormFieldModule,
         MatIconModule,
         MatInputModule,
         MatTableModule,
@@ -47,16 +57,18 @@ describe('ContactListComponent', () => {
         StoreModule.forRoot({contacts: contactReducer})
       ],
       providers: [
-        ContactFullNamePipe
+        ContactFullNamePipe,
+        {MatDialog, useClass: MdDialogMock}
       ]
-    })
-      .compileComponents();
+    }).compileComponents().then(() => {
+      dialog = TestBed.inject(MatDialog);
+    });
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ContactListComponent);
     component = fixture.componentInstance;
-    loader = TestbedHarnessEnvironment.loader(fixture)
+    loader = TestbedHarnessEnvironment.loader(fixture);
     fixture.detectChanges();
   });
 
@@ -96,7 +108,15 @@ describe('ContactListComponent', () => {
       }
     ]);
 
-    component.sortContactList(component.contactList.data)
+    component.sortContactList(component.contactList.data);
+  });
+
+  // Close the windows if exist
+  afterEach(async () => {
+    const backdrop = document.querySelector('.cdk-overlay-backdrop') as HTMLElement;
+    if (backdrop) {
+      await backdrop.click();
+    }
   });
 
   it('should create', () => {
@@ -109,23 +129,23 @@ describe('ContactListComponent', () => {
     expect(rows.length).toBe(4);
   });
 
-  const renderRowsTestCases = [
-    {icon: 'person', fullName: 'Dueso, Victor'},
-    {icon: 'person', fullName: 'Gonzalez, Alex'},
-    {icon: 'person', fullName: 'Martinez, Marc'},
-    {icon: 'person', fullName: 'Monserrat, Marc'}
-  ];
-  it('should render correctly each contact in alphabetical order', async () => {
+  it('should render each contact in alphabetical order', async () => {
     const rows = await loader.getAllHarnesses<MatRowHarness>(MatRowHarness);
 
+    const renderRowsTestCases = [
+      {icon: 'person', fullName: 'Dueso, Victor'},
+      {icon: 'person', fullName: 'Gonzalez, Alex'},
+      {icon: 'person', fullName: 'Martinez, Marc'},
+      {icon: 'person', fullName: 'Monserrat, Marc'}
+    ];
     let renderedRowCount = 0;
     for (let i = 0; i < rows.length; i++) {
-        const rowColumns = await rows[i].getCellTextByColumnName();
-        if(rowColumns.icon === renderRowsTestCases[i].icon
-          && rowColumns.fullName === renderRowsTestCases[i].fullName ) {
-          renderedRowCount++;
-        }
+      const rowColumns = await rows[i].getCellTextByColumnName();
+      if (rowColumns.icon === renderRowsTestCases[i].icon
+        && rowColumns.fullName === renderRowsTestCases[i].fullName) {
+        renderedRowCount++;
       }
+    }
 
     expect(renderedRowCount).toBe(4);
   });
@@ -164,7 +184,7 @@ describe('ContactListComponent', () => {
       if (test.expected === 0) {
         expectedTest = 'There are no contacts with this filter';
       } else {
-        expectedTest = test.expected + ' Contacts'
+        expectedTest = test.expected + ' Contacts';
       }
 
       expect(footerText).toBe(expectedTest);
@@ -190,57 +210,45 @@ describe('ContactListComponent', () => {
   });
 
   it('should open the contact detail window', async () => {
+    spyOn(dialog, 'open').and.callThrough();
+
     const rows = await loader.getAllHarnesses<MatRowHarness>(MatRowHarness);
     const host = await rows[0].host();
     await host.click();
-    fixture.detectChanges();
-    await fixture.whenStable();
 
-    const dialog = document.querySelector('.mat-dialog-container .contact-detail-container');
-
-    expect(dialog).toBeTruthy();
+    expect(dialog.open).toHaveBeenCalledWith(ContactDetailWindowComponent, {
+      data: {
+        contact: {
+          id: '1',
+          name: 'Victor',
+          surname: 'Dueso',
+          phone: '676989832',
+          email: 'vdueso@hpaz.com',
+          address: 'Calle Pez 43 1º 2ª, 28004 Madrid'
+        }
+      }
+    });
   });
 
-  it('should highlight the selected contact whilst the contact detail is open', async () => {
+
+  it(`should only highlight the selected row`, async () => {
     const rows = await loader.getAllHarnesses<MatRowHarness>(MatRowHarness);
-    const firstRow = await rows[0].host();
+    const activeRow = await rows[2].host();
 
-    // Check if all rows are inactive
-    let rowsAreInactiveBeforeOpen = true;
-    for(let i = 0; i < rows.length; i++) {
-      const host = await rows[i].host();
-      rowsAreInactiveBeforeOpen = rowsAreInactiveBeforeOpen && !(await host.hasClass('active'));
-    }
-
-    // Open window selecting the first row
-    await firstRow.click();
+    // Open window selecting the row
+    await activeRow.click();
     fixture.detectChanges();
     await fixture.whenStable();
 
-    // Check if first row is active
-    const firstRowIsActiveAfterOpen = await firstRow.hasClass('active');
+    // Look for the active row
+    let rowsState = [];
+    for (let i = 0; i < rows.length; i++) {
+      const row = await rows[i].host();
+      const isActive = await row.hasClass('active');
 
-    // Check if the other rows are inactive
-    let otherRowsAreInactiveAfterOpen = true;
-    for(let i = 1; i < rows.length; i++) {
-      const host = await rows[i].host();
-      otherRowsAreInactiveAfterOpen = otherRowsAreInactiveAfterOpen && !(await host.hasClass('active'));
+      rowsState.push(isActive);
     }
 
-    // Close window
-    const backdrop = document.querySelector('.cdk-overlay-backdrop') as HTMLElement;
-    await backdrop.click();
-
-    // Check if all rows are inactive
-    let rowsAreInactiveAfterClose = true;
-    for(let i = 1; i < rows.length; i++) {
-      const host = await rows[i].host();
-      rowsAreInactiveAfterClose = rowsAreInactiveAfterClose && !(await host.hasClass('active'));
-    }
-
-    expect(rowsAreInactiveBeforeOpen
-    && firstRowIsActiveAfterOpen
-    && otherRowsAreInactiveAfterOpen
-    && rowsAreInactiveAfterClose).toBeTrue();
+    expect(rowsState).toEqual([false, false, true, false]);
   });
 });

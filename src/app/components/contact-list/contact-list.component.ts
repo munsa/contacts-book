@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Contact} from '../../shared/model/contact.model';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {NewContactWindowComponent} from './new-contact-window/new-contact-window.component';
 import {ContactDetailWindowComponent} from './contact-detail-window/contact-detail-window.component';
 import {MatTableDataSource} from '@angular/material/table';
@@ -19,8 +19,8 @@ export class ContactListComponent implements OnInit {
 
   public contactList: MatTableDataSource<Contact>;
   public displayedColumns: string[];
-  public selection: SelectionModel<Contact>;
   public selectedContactId: string;
+  public newContactWindowRef: MatDialogRef<NewContactWindowComponent>;
 
   constructor(public dialog: MatDialog,
               private contactFullName: ContactFullNamePipe,
@@ -58,7 +58,7 @@ export class ContactListComponent implements OnInit {
     this.store.dispatch(add({contact: contact}));
   }
 
-  openContactWindow(selectedContact: Contact): void {
+  openContactDetailWindow(selectedContact: Contact): void {
     this.selectedContactId = selectedContact.id;
     const dialogRef = this.dialog.open(ContactDetailWindowComponent, {data: {contact: selectedContact}});
 
@@ -68,13 +68,13 @@ export class ContactListComponent implements OnInit {
   }
 
   openNewContactWindow(): void {
-    const dialogRef = this.dialog.open(NewContactWindowComponent);
+    this.newContactWindowRef = this.dialog.open(NewContactWindowComponent);
 
-    dialogRef.componentInstance.addContact.subscribe((contact: Contact) => {
+    this.newContactWindowRef.componentInstance.addContact.subscribe((contact: Contact) => {
       this.createContact(contact);
 
-      dialogRef.close();
-      dialogRef.componentInstance.addContact.unsubscribe();
+      this.newContactWindowRef.close();
+      this.newContactWindowRef.componentInstance.addContact.unsubscribe();
     });
   }
 
