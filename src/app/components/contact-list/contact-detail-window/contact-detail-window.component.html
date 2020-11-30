@@ -1,0 +1,18 @@
+<div class="contact-detail-container">
+  <div class="contact-detail-item header">
+    <mat-icon matSuffix class="icon" aria-label="Contact name icon">person</mat-icon>
+    <div id="contact-detail-name">{{contact | contactFullName}}</div>
+  </div>
+  <div class="contact-detail-item">
+    <mat-icon matSuffix class="icon" aria-label="Contact phone icon">phone</mat-icon>
+    <div id="contact-detail-phone">{{contact.phone}}</div>
+  </div>
+  <div class="contact-detail-item">
+    <mat-icon matSuffix class="icon" aria-label="Contact email icon">alternate_email</mat-icon>
+    <div id="contact-detail-email">{{contact.email}}</div>
+  </div>
+  <div class="contact-detail-item">
+    <mat-icon matSuffix class="icon" aria-label="Contact address icon">home</mat-icon>
+    <div id="contact-detail-address">{{contact.address}}</div>
+  </div>
+</div>

@@ -1,6 +1,12 @@
+<!-- App Header -->
 <mat-toolbar class="app-toolbar" color="primary">
-  <span>{{title}}</span>
+  <mat-icon matSuffix>contacts</mat-icon>
+  <span class="toolbar-title">{{title}}</span>
 </mat-toolbar>
 
-<router-outlet></router-outlet>
+<!-- App Content -->
+<div class="container">
+  <app-contact-list></app-contact-list>
+</div>
+
 

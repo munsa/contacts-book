@@ -1,0 +1,29 @@
+<div class="contact-list-container">
+
+  <button mat-raised-button color="primary" class="new-contact-button" (click)="openNewContactWindow()">
+    <mat-icon matSuffix class="icon" aria-label="New contact icon">person_add</mat-icon>
+    <span>Add Contact</span>
+  </button>
+
+  <table class="contacts-table mat-elevation-z8">
+    <tr>
+      <th class="table-header">Contact name</th>
+    </tr>
+    <div id="empty-message" *ngIf="contacts.length === 0; else contactList">
+      Your contact book is empty
+    </div>
+    <ng-template #contactList>
+      <cdk-virtual-scroll-viewport [itemSize]="50" class="contacts-virtual-scroll">
+        <tr *cdkVirtualFor="let contact of contacts;"
+            (click)="openContactDetailWindow(contact)"
+            id="contact-item"
+            [ngClass]="{active: contact.id === selectedContactId}">
+          <td>
+            <mat-icon matSuffix class="contact-icon">person</mat-icon>
+            <div id="contact-name">{{contact|contactFullName}}</div>
+          </td>
+        </tr>
+      </cdk-virtual-scroll-viewport>
+    </ng-template>
+  </table>
+</div>

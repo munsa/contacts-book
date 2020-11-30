@@ -1,0 +1,53 @@
+<h1 id="new-contact-window-title">Create new contact</h1>
+
+<form class="contact-form"
+      [formGroup]="contactForm"
+      (ngSubmit)="onSubmit()">
+  <mat-form-field class="contact-form-input">
+    <mat-label>Name</mat-label>
+    <input matInput
+           id="nameInput"
+           placeholder="Name"
+           formControlName="name">
+    <mat-icon matSuffix>person</mat-icon>
+    <mat-error *ngIf="contactForm.controls['name'].hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="contact-form-input">
+    <mat-label>Surname</mat-label>
+    <input matInput
+           id="surnameInput"
+           placeholder="Surname"
+           formControlName="surname">
+    <mat-icon matSuffix>person</mat-icon>
+  </mat-form-field>
+  <mat-form-field class="contact-form-input">
+    <mat-label>Phone</mat-label>
+    <input matInput
+           id="phoneInput"
+           placeholder="Phone"
+           formControlName="phone">
+    <mat-icon matSuffix>phone</mat-icon>
+  </mat-form-field>
+  <mat-form-field class="contact-form-input">
+    <mat-label>Email</mat-label>
+    <input matInput
+           id="emailInput"
+           placeholder="Email"
+           formControlName="email">
+    <mat-icon matSuffix>alternate_email</mat-icon>
+  </mat-form-field>
+  <mat-form-field class="contact-form-input">
+    <mat-label>Address</mat-label>
+    <textarea matInput
+              id="addressInput"
+              placeholder="Address"
+              formControlName="address">
+    </textarea>
+    <mat-icon matSuffix>home</mat-icon>
+  </mat-form-field>
+  <button mat-raised-button id="submitButton" color="primary" type="submit"
+          [disabled]="contactForm.invalid">Add Contact
+  </button>
+</form>
