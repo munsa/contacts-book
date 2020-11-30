@@ -9,7 +9,6 @@ import {ContactFullNamePipe} from './shared/pipes/contact-full-name.pipe';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StoreModule} from '@ngrx/store';
@@ -24,7 +23,6 @@ describe('AppComponent', () => {
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        MatTableModule,
         MatButtonModule,
         MatFormFieldModule,
         FormsModule,

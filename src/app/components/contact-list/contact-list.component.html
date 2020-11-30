@@ -17,7 +17,7 @@
              [ngClass]="{active: contact.id === selectedContactId}"
              (click)="openContactDetailWindow(contact)">
           <mat-icon matSuffix class="contact-icon">person</mat-icon>
-          <div>{{contact|contactFullName}}</div>
+          <div id="contact-name">{{contact|contactFullName}}</div>
         </div>
       </cdk-virtual-scroll-viewport>
     </ng-template>

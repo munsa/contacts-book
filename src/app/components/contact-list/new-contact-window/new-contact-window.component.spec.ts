@@ -39,7 +39,9 @@ describe('NewContactWindowComponent', () => {
         FormsModule,
         ReactiveFormsModule
       ],
-      providers: [{MatDialog, useClass: MdDialogMock}]
+      providers: [
+        {MatDialog, useClass: MdDialogMock}
+      ]
     })
       .compileComponents();
   }));

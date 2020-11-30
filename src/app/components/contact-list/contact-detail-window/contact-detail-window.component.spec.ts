@@ -67,6 +67,7 @@ describe('ContactDetailWindowComponent', () => {
 
   it('should render the address', () => {
     const addressDetail = document.querySelector('#contact-detail-address');
+
     expect(addressDetail.textContent).toBe('Terminator Avenue 73, Los Angeles, California');
   });
 });

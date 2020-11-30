@@ -3,11 +3,12 @@ import {Contact} from '../shared/model/contact.model';
 import {add} from '../actions/contact.actions';
 
 describe('Contact Reducer', () => {
+
   it('should return the default state', () => {
     const action = {type: 'NOOP'} as any;
     const result = contactReducer(undefined, action);
 
-    expect(result).toBe(initialState);
+    expect(result).toEqual([]);
   });
 
   it('it should add a contact', () => {
@@ -21,6 +22,6 @@ describe('Contact Reducer', () => {
     const action = add({ contact: contact });
     const result = contactReducer(initialState, action);
 
-    expect(result).toEqual([contact]);
+    expect(result).toEqual([...initialState, contact]);
   });
 });

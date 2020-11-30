@@ -38,7 +38,6 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     FormsModule,
     ReactiveFormsModule,
     StoreModule.forRoot({contacts: contactReducer}),
-    MatListModule,
     ScrollingModule
   ],
   providers: [ContactFullNamePipe],
