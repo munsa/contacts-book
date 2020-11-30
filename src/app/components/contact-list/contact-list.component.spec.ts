@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ContactListComponent} from './contact-list.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
@@ -98,19 +98,22 @@ describe('ContactListComponent', () => {
     });
   }));
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     fixture = TestBed.createComponent(ContactListComponent);
+    fixture.autoDetectChanges();
+    tick(500);
+
     component = fixture.componentInstance;
     loader = TestbedHarnessEnvironment.loader(fixture);
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should render all the contacts', async () => {
-    const items = document.querySelectorAll('.contact-item');
+    const items = document.querySelectorAll('#contact-item');
 
     expect(items.length).toBe(4);
   });
@@ -145,7 +148,7 @@ describe('ContactListComponent', () => {
   it('should open the contact detail window', async () => {
     spyOn(dialog, 'open');
 
-    const item = document.querySelector('.contact-item') as HTMLElement;
+    const item = document.querySelector('#contact-item') as HTMLElement;
     item.click();
 
     expect(dialog.open).toHaveBeenCalledWith(ContactDetailWindowComponent, {
@@ -166,7 +169,7 @@ describe('ContactListComponent', () => {
   it(`should only highlight the selected contact`, async () => {
     spyOn(dialog, 'open');
 
-    const items = document.querySelectorAll('.contact-item');
+    const items = document.querySelectorAll('#contact-item');
     const activeItem = items[2] as HTMLElement;
 
     // Open window selecting the row

@@ -5,22 +5,25 @@
     <span>Add Contact</span>
   </button>
 
-  <div class="contacts-list-container mat-elevation-z8">
+  <table class="contacts-table mat-elevation-z8">
+    <tr>
+      <th class="table-header">Contact name</th>
+    </tr>
     <div id="empty-message" *ngIf="contacts.length === 0; else contactList">
       Your contact book is empty
     </div>
-
     <ng-template #contactList>
       <cdk-virtual-scroll-viewport [itemSize]="50" class="contacts-virtual-scroll">
-        <div *ngFor="let contact of contacts;"
-             class="contact-item"
-             [ngClass]="{active: contact.id === selectedContactId}"
-             (click)="openContactDetailWindow(contact)">
-          <mat-icon matSuffix class="contact-icon">person</mat-icon>
-          <div id="contact-name">{{contact|contactFullName}}</div>
-        </div>
+        <tr *cdkVirtualFor="let contact of contacts;"
+            (click)="openContactDetailWindow(contact)"
+            id="contact-item"
+            [ngClass]="{active: contact.id === selectedContactId}">
+          <td>
+            <mat-icon matSuffix class="contact-icon">person</mat-icon>
+            <div id="contact-name">{{contact|contactFullName}}</div>
+          </td>
+        </tr>
       </cdk-virtual-scroll-viewport>
     </ng-template>
-  </div>
-
+  </table>
 </div>
