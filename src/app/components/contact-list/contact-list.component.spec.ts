@@ -118,10 +118,10 @@ describe('ContactListComponent', () => {
   it('should render each contact in alphabetical order', async () => {
     const items = document.querySelectorAll('#contact-name');
 
-    let orderedItems = [];
-    for (let i = 0; i < items.length; i++) {
-      orderedItems.push(items[i].textContent);
-    }
+    const orderedItems = [];
+    items.forEach(item => {
+      orderedItems.push(item.textContent);
+    });
 
     expect(orderedItems).toEqual([
       'Dueso, Victor',
@@ -175,13 +175,13 @@ describe('ContactListComponent', () => {
     await fixture.whenStable();
 
     // Look for the active row
-    let rowsState = [];
-    for (let i = 0; i < items.length; i++) {
-      const currentItem = items[i] as HTMLElement;
+    const rowsState = [];
+    items.forEach(item => {
+      const currentItem = item as HTMLElement;
       const isActive = currentItem.classList.contains('active');
 
       rowsState.push(isActive);
-    }
+    });
 
     expect(rowsState).toEqual([false, false, true, false]);
   });

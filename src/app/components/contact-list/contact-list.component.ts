@@ -48,7 +48,7 @@ export class ContactListComponent implements OnInit {
 
   createContact(contact: Contact) {
     contact.id = uuidv4();
-    this.store.dispatch(add({contact: contact}));
+    this.store.dispatch(add({contact}));
   }
 
   openContactDetailWindow(selectedContact: Contact): void {

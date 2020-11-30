@@ -28,7 +28,7 @@ export class NewContactWindowComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.contactForm.valid) {
+    if (this.contactForm.valid) {
       this.addContact.emit(this.contactForm.value);
     }
   }

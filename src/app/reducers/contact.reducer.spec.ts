@@ -19,7 +19,7 @@ describe('Contact Reducer', () => {
     contact.email = 'mmonserrat90@gmail.com';
     contact.address = 'Speckbachergasse 32/6-7, 1160 Vienna';
 
-    const action = add({ contact: contact });
+    const action = add({contact});
     const result = contactReducer(initialState, action);
 
     expect(result).toEqual([...initialState, contact]);

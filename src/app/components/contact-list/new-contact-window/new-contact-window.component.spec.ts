@@ -49,7 +49,7 @@ describe('NewContactWindowComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NewContactWindowComponent);
     component = fixture.componentInstance;
-    loader = TestbedHarnessEnvironment.loader(fixture)
+    loader = TestbedHarnessEnvironment.loader(fixture);
     fixture.detectChanges();
   });
 
@@ -64,7 +64,7 @@ describe('NewContactWindowComponent', () => {
   });
 
   it('should disable the submit button if name is empty', async () => {
-    component.contactForm.controls['name'].setValue('');
+    component.contactForm.controls.name.setValue('');
     component.contactForm.updateValueAndValidity();
     fixture.detectChanges();
     await fixture.whenStable();
@@ -75,7 +75,7 @@ describe('NewContactWindowComponent', () => {
   });
 
   it('should enable the submit button if name is not empty', async () => {
-    component.contactForm.controls['name'].setValue('Sarah');
+    component.contactForm.controls.name.setValue('Sarah');
     component.contactForm.updateValueAndValidity();
     fixture.detectChanges();
     await fixture.whenStable();
@@ -89,11 +89,11 @@ describe('NewContactWindowComponent', () => {
     spyOn(component.addContact, 'emit');
 
     // Fill form
-    component.contactForm.controls['name'].setValue('Arnold');
-    component.contactForm.controls['surname'].setValue('Schwarzenegger');
-    component.contactForm.controls['phone'].setValue('003632783284');
-    component.contactForm.controls['email'].setValue('arnegger@gmail.com');
-    component.contactForm.controls['address'].setValue('Terminator Avenue 73, Los Angeles, California');
+    component.contactForm.controls.name.setValue('Arnold');
+    component.contactForm.controls.surname.setValue('Schwarzenegger');
+    component.contactForm.controls.phone.setValue('003632783284');
+    component.contactForm.controls.email.setValue('arnegger@gmail.com');
+    component.contactForm.controls.address.setValue('Terminator Avenue 73, Los Angeles, California');
 
     const acceptButtonHarness = await loader.getHarness<MatButtonHarness>(MatButtonHarness.with({text: 'Add Contact'}));
     const acceptButton = await acceptButtonHarness.host();

@@ -12,13 +12,13 @@ describe('ContactDetailWindowComponent', () => {
   let fixture: ComponentFixture<ContactDetailWindowComponent>;
   let loader: HarnessLoader;
 
-  let contactData = {
+  const contactData = {
     name: 'Arnold',
     surname: 'Schwarzenegger',
     phone: '003632783284',
     email: 'arnegger@gmail.com',
     address: 'Terminator Avenue 73, Los Angeles, California'
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -42,7 +42,7 @@ describe('ContactDetailWindowComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ContactDetailWindowComponent);
     component = fixture.componentInstance;
-    loader = TestbedHarnessEnvironment.loader(fixture)
+    loader = TestbedHarnessEnvironment.loader(fixture);
     fixture.detectChanges();
   });
 
