@@ -1,14 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Contact} from '../../shared/model/contact.model';
-import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {NewContactWindowComponent} from './new-contact-window/new-contact-window.component';
 import {ContactDetailWindowComponent} from './contact-detail-window/contact-detail-window.component';
-import {MatTableDataSource} from '@angular/material/table';
 import {ContactFullNamePipe} from '../../shared/pipes/contact-full-name.pipe';
-import { Store } from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {add} from '../../actions/contact.actions';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-contact-list',
@@ -17,7 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class ContactListComponent implements OnInit {
 
-  public contactList: MatTableDataSource<Contact>;
+  public contacts: Contact[];
   public displayedColumns: string[];
   public selectedContactId: string;
   public newContactWindowRef: MatDialogRef<NewContactWindowComponent>;
@@ -31,8 +29,8 @@ export class ContactListComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(state => state.contacts).subscribe(res => {
-      this.contactList = new MatTableDataSource([...res]);
-      this.sortContactList(this.contactList.data);
+      this.contacts = [...res];
+      this.sortContactList(this.contacts);
     });
   }
 
@@ -46,11 +44,6 @@ export class ContactListComponent implements OnInit {
       }
       return 0;
     });
-  }
-
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.contactList.filter = filterValue.trim().toLowerCase();
   }
 
   createContact(contact: Contact) {

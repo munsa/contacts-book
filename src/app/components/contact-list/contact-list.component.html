@@ -1,53 +1,23 @@
-<div class="contact-table-container">
-  <div class="contact-table-header">
-    <button mat-raised-button color="primary" class="new-contact-button" (click)="openNewContactWindow()">
-      <mat-icon matSuffix class="icon" aria-label="New contact icon">person_add</mat-icon>
-      <span>Add Contact</span>
-    </button>
-    <mat-form-field class="contact-table-filter">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Vienna " #filterInput class="contact-filter-input">
-    </mat-form-field>
+<div class="contact-list-container">
+
+  <button mat-raised-button color="primary" class="new-contact-button" (click)="openNewContactWindow()">
+    <mat-icon matSuffix class="icon" aria-label="New contact icon">person_add</mat-icon>
+    <span>Add Contact</span>
+  </button>
+
+  <div class="contacts-list-container mat-elevation-z8">
+    <div id="empty-message" *ngIf="contacts.length === 0; else contactList">
+      Your contact book is empty
+    </div>
+
+    <ng-template #contactList>
+      <cdk-virtual-scroll-viewport [itemSize]="50" class="contacts-virtual-scroll">
+        <div *ngFor="let contact of contacts;" class="contact-item" (click)="openContactDetailWindow(contact)">
+          <mat-icon matSuffix class="contact-icon">person</mat-icon>
+          <div>{{contact|contactFullName}}</div>
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </ng-template>
   </div>
 
-  <table mat-table [dataSource]="contactList" class="mat-elevation-z8 contact-table" #contactsTable>
-    <!-- Person icon -->
-    <ng-container matColumnDef="icon">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let contact" class="person-icon-container">
-        <mat-icon matSuffix class="person-icon">person</mat-icon>
-      </td>
-      <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
-
-    <!-- Contact full name -->
-    <ng-container matColumnDef="fullName">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let contact"> {{contact | contactFullName}} </td>
-      <td mat-footer-cell *matFooterCellDef
-          [ngSwitch]="contactList.filteredData.length"
-          class="summary-row">
-        <div *ngIf="contactList.data.length === 0; else summaryMessage">
-          You don't have contacts yet
-        </div>
-        <ng-template #summaryMessage>
-          <div *ngIf="contactList.filteredData.length === 0; else numberOfResults">
-            There are no contacts with this filter
-          </div>
-          <ng-template #numberOfResults>
-            {{contactList.filteredData.length}} Contacts
-          </ng-template>
-        </ng-template>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row
-        *matRowDef="let contact; columns: displayedColumns;"
-        class="contact-row"
-        [ngClass]="{active: contact.id === selectedContactId}"
-        (click)="openContactDetailWindow(contact)"></tr>
-    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-
-  </table>
 </div>

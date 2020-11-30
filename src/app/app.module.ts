@@ -16,6 +16,8 @@ import {ContactDetailWindowComponent} from './components/contact-list/contact-de
 import {ContactFullNamePipe} from './shared/pipes/contact-full-name.pipe';
 import {StoreModule} from '@ngrx/store';
 import {contactReducer} from './reducers/contact.reducer';
+import {MatListModule} from '@angular/material/list';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import {contactReducer} from './reducers/contact.reducer';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({contacts: contactReducer})
+    StoreModule.forRoot({contacts: contactReducer}),
+    MatListModule,
+    ScrollingModule
   ],
   providers: [ContactFullNamePipe],
   bootstrap: [AppComponent]
