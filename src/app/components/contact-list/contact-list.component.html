@@ -12,7 +12,10 @@
 
     <ng-template #contactList>
       <cdk-virtual-scroll-viewport [itemSize]="50" class="contacts-virtual-scroll">
-        <div *ngFor="let contact of contacts;" class="contact-item" (click)="openContactDetailWindow(contact)">
+        <div *ngFor="let contact of contacts;"
+             class="contact-item"
+             [ngClass]="{active: contact.id === selectedContactId}"
+             (click)="openContactDetailWindow(contact)">
           <mat-icon matSuffix class="contact-icon">person</mat-icon>
           <div>{{contact|contactFullName}}</div>
         </div>
